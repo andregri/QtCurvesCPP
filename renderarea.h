@@ -32,6 +32,8 @@ private:
     QColor mBackgroundColor;
     QColor mShapeColor;
     ShapeType mShape;
+
+    QPointF compute_astroid(float);
 };
 
 #endif // RENDERAREA_H
