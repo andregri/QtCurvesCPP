@@ -61,14 +61,14 @@ void RenderArea::on_shape_changed()
 {
     switch (mShape) {
     case Astroid:
-        mScale = 40;
+        mScale = 90;
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
 
     case Cycloid:
-        mScale = 4;
-        mIntervalLength = 6 * M_PI;
+        mScale = 10;
+        mIntervalLength = 4 * M_PI;
         mStepCount = 128;
         break;
 
@@ -79,7 +79,7 @@ void RenderArea::on_shape_changed()
         break;
 
     case HypoCycloid:
-        mScale = 15;
+        mScale = 40;
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
@@ -87,6 +87,12 @@ void RenderArea::on_shape_changed()
     case Line:
         mIntervalLength = 1; // not necessary
         mScale = 100; // line length
+        mStepCount = 128;
+        break;
+
+    case Circle:
+        mScale = 100;
+        mIntervalLength = 2 * M_PI;
         mStepCount = 128;
         break;
 
@@ -100,22 +106,21 @@ QPointF RenderArea::compute(float t)
     switch (mShape) {
     case Astroid:
         return compute_astroid(t);
-        break;
 
     case Cycloid:
         return compute_cycloid(t);
-        break;
 
     case HuygensCycloid:
         return compute_huygens(t);
-        break;
 
     case HypoCycloid:
         return compute_hypo(t);
-        break;
 
     case Line:
         return compute_line(t);
+
+    case Circle:
+        return compute_circle(t);
 
     default:
         break;
@@ -153,7 +158,7 @@ QPointF RenderArea::compute_huygens(float t)
 QPointF RenderArea::compute_hypo(float t)
 {
     float x = 1.5 * (2 * cos(t) + cos(2 * t));
-    float y = 1.5 * (2 * sin(t) + sin(2 * t));
+    float y = 1.5 * (2 * sin(t) - sin(2 * t));
 
     return QPointF(x,y);
 }
@@ -162,6 +167,14 @@ QPointF RenderArea::compute_line(float t)
 {
     float x = 1 - t;
     float y = 1 - t;
+
+    return QPointF(x,y);
+}
+
+QPointF RenderArea::compute_circle(float t)
+{
+    float x = cos(t);
+    float y = sin(t);
 
     return QPointF(x,y);
 }
