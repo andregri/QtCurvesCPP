@@ -102,6 +102,11 @@ void RenderArea::on_shape_changed()
         mStepCount = 256;
         break;
 
+    case Flower:
+        mScale = 10;
+        mIntervalLength = 12 * M_PI;
+        mStepCount = 512;
+
     default:
         break;
     }
@@ -130,6 +135,9 @@ QPointF RenderArea::compute(float t)
 
     case Ellipse:
         return compute_ellipse(t);
+
+    case Flower:
+        return compute_flower(t);
 
     default:
         break;
@@ -192,6 +200,14 @@ QPointF RenderArea::compute_ellipse(float t)
 {
     float x = 2 * cos(t);
     float y = 1.1 * sin(t);
+
+    return QPointF(x,y);
+}
+
+QPointF RenderArea::compute_flower(float t)
+{
+    float x = 11.0f * cos(t) - 6.0f * cos(11.0f / 6.0f * t);
+    float y = 11.0f * sin(t) - 6.0f * sin(11.0f / 6.0f * t);
 
     return QPointF(x,y);
 }
