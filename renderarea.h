@@ -21,6 +21,15 @@ public:
     ShapeType getShape() const { return mShape; }
     void setShape(ShapeType shape) { mShape = shape; on_shape_changed(); }
 
+    float getIntervalLength() const { return mIntervalLength; }
+    void setIntervalLength(float length) { mIntervalLength = length; }
+
+    float getScale() const { return mScale; }
+    void setScale(float scale) { mScale = scale; }
+
+    int getStepCount() const { return mStepCount; }
+    void setStepCount(int stepCount) { mStepCount = stepCount; }
+
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 
