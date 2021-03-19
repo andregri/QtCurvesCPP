@@ -14,7 +14,8 @@ public:
     QSize minimumSizeHint() const Q_DECL_OVERRIDE;
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
-    enum ShapeType { Astroid, Cycloid, HuygensCycloid, HypoCycloid, Line, Circle, Ellipse, Flower, Starfish };
+    enum ShapeType { Astroid, Cycloid, HuygensCycloid, HypoCycloid, Line, Circle, Ellipse, Flower, Starfish,
+                   Cloud1, Cloud2};
 
     void setBackgroundColor(QColor color) { mBackgroundColor = color; }
     QColor getBackgroundColor() const { return mBackgroundColor; }
@@ -61,6 +62,9 @@ private:
     QPointF compute_ellipse(float);
     QPointF compute_flower(float);
     QPointF compute_starfish(float);
+    QPointF compute_cloud1(float);
+    QPointF compute_cloud2(float);
+    QPointF compute_cloud_with_sign(float, float);
 };
 
 #endif // RENDERAREA_H

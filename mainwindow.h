@@ -44,6 +44,10 @@ private slots:
 
     void on_btnStarfish_clicked();
 
+    void on_btnCloud1_clicked();
+
+    void on_btnCloud2_clicked();
+
 private:
     Ui::MainWindow *ui;
 
