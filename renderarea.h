@@ -19,8 +19,8 @@ public:
     void setBackgroundColor(QColor color) { mBackgroundColor = color; }
     QColor getBackgroundColor() const { return mBackgroundColor; }
 
-    void setShapeColor(QColor color) { mShapeColor = color; }
-    QColor getShapeColor() const { return mShapeColor; }
+    void setShapeColor(QColor color) { mPen.setColor(color); }
+    QColor getShapeColor() const { return mPen.color(); }
 
     ShapeType getShape() const { return mShape; }
     void setShape(ShapeType shape) { mShape = shape; on_shape_changed(); }
@@ -43,9 +43,8 @@ public slots:
 
 private:
     QColor mBackgroundColor;
-    QColor mShapeColor;
-    ShapeType mShape;
     QPen mPen;
+    ShapeType mShape;
 
     float mIntervalLength;
     float mScale;
