@@ -29,27 +29,6 @@ void RenderArea::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    switch (mShape) {
-    case Astroid:
-        mBackgroundColor = Qt::red;
-        break;
-
-    case Cycloid:
-        mBackgroundColor = Qt::green;
-        break;
-
-    case HuygensCycloid:
-        mBackgroundColor = Qt::blue;
-        break;
-
-    case HypoCycloid:
-        mBackgroundColor = Qt::yellow;
-        break;
-
-    default:
-        break;
-    }
-
     painter.setBrush(mBackgroundColor);
     painter.setPen(mShapeColor);
 
@@ -97,6 +76,12 @@ void RenderArea::on_shape_changed()
         mStepCount = 256;
         break;
 
+    case Line:
+        mIntervalLength = 1; // not necessary
+        mScale = 100; // line length
+        mStepCount = 128;
+        break;
+
     default:
         break;
     }
@@ -121,8 +106,8 @@ QPointF RenderArea::compute(float t)
         return compute_hypo(t);
         break;
 
-    case FutureCurve:
-        return compute_future(t);
+    case Line:
+        return compute_line(t);
 
     default:
         break;
@@ -165,7 +150,10 @@ QPointF RenderArea::compute_hypo(float t)
     return QPointF(x,y);
 }
 
-QPointF RenderArea::compute_future(float t)
+QPointF RenderArea::compute_line(float t)
 {
-    return QPointF(0,0);
+    float x = 1 - t;
+    float y = 1 - t;
+
+    return QPointF(x,y);
 }
