@@ -13,13 +13,13 @@ public:
     QSize minimumSizeHint() const Q_DECL_OVERRIDE;
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
-    enum ShapeType { Astroid, Cycloid, HuygensCycloid, HypoCycloid };
+    enum ShapeType { Astroid, Cycloid, HuygensCycloid, HypoCycloid, FutureCurve };
 
     void setBackgroundColor(QColor color) { mBackgroundColor = color; }
     QColor getBackgroundColor() const { return mBackgroundColor; }
 
     ShapeType getShape() const { return mShape; }
-    void setShape(ShapeType shape) { mShape = shape; }
+    void setShape(ShapeType shape) { mShape = shape; on_shape_changed(); }
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -33,7 +33,17 @@ private:
     QColor mShapeColor;
     ShapeType mShape;
 
+    float mIntervalLength;
+    float mScale;
+    int   mStepCount;
+
+    void on_shape_changed();
+    QPointF compute(float); // dispatch compute_ functions based on ShapeType
     QPointF compute_astroid(float);
+    QPointF compute_cycloid(float);
+    QPointF compute_huygens(float);
+    QPointF compute_hypo(float);
+    QPointF compute_future(float);
 };
 
 #endif // RENDERAREA_H
