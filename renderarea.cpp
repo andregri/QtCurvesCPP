@@ -107,6 +107,11 @@ void RenderArea::on_shape_changed()
         mIntervalLength = 12 * M_PI;
         mStepCount = 512;
 
+    case Starfish:
+        mScale = 25;
+        mIntervalLength = 6 * M_PI;
+        mStepCount = 256;
+
     default:
         break;
     }
@@ -138,6 +143,9 @@ QPointF RenderArea::compute(float t)
 
     case Flower:
         return compute_flower(t);
+
+    case Starfish:
+        return compute_starfish(t);
 
     default:
         break;
@@ -208,6 +216,18 @@ QPointF RenderArea::compute_flower(float t)
 {
     float x = 11.0f * cos(t) - 6.0f * cos(11.0f / 6.0f * t);
     float y = 11.0f * sin(t) - 6.0f * sin(11.0f / 6.0f * t);
+
+    return QPointF(x,y);
+}
+
+QPointF RenderArea::compute_starfish(float t)
+{
+    float R = 5.0f;
+    float r = 3.0f;
+    float d = 5.0f;
+
+    float x = (R-r) * cos(t) + d * cos( (R-r)/r * t );
+    float y = (R-r) * sin(t) - d * sin( (R-r)/r * t );
 
     return QPointF(x,y);
 }
