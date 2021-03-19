@@ -1,6 +1,7 @@
 #include "renderarea.h"
 #include <QPainter>
 #include <QPaintEvent>
+#include <QPen>
 #include <math.h>
 
 RenderArea::RenderArea(QWidget *parent) :
@@ -9,6 +10,8 @@ RenderArea::RenderArea(QWidget *parent) :
     mShapeColor(255,255,255),
     mShape(Astroid)
 {
+    mPen.setWidth(2);
+    mPen.setColor(mShapeColor);
     on_shape_changed();
 }
 
@@ -30,7 +33,7 @@ void RenderArea::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing, true);
 
     painter.setBrush(mBackgroundColor);
-    painter.setPen(mShapeColor);
+    painter.setPen(mPen);
 
     // drawing area
     painter.drawRect(this->rect());
@@ -55,6 +58,12 @@ void RenderArea::paintEvent(QPaintEvent *event)
 
         prevPixel = pixel;
     }
+
+    QPointF point = compute(mIntervalLength);
+    QPoint pixel;
+    pixel.setX(point.x() * mScale + center.x());
+    pixel.setY(point.y() * mScale + center.y());
+    painter.drawLine(pixel, prevPixel);
 }
 
 void RenderArea::on_shape_changed()
@@ -106,11 +115,13 @@ void RenderArea::on_shape_changed()
         mScale = 10;
         mIntervalLength = 12 * M_PI;
         mStepCount = 512;
+        break;
 
     case Starfish:
         mScale = 25;
         mIntervalLength = 6 * M_PI;
         mStepCount = 256;
+        break;
 
     default:
         break;

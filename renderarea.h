@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QColor>
+#include <QPen>
 
 class RenderArea : public QWidget
 {
@@ -44,6 +45,7 @@ private:
     QColor mBackgroundColor;
     QColor mShapeColor;
     ShapeType mShape;
+    QPen mPen;
 
     float mIntervalLength;
     float mScale;
